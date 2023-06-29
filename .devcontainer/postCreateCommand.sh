@@ -1,31 +1,27 @@
 #!/bin/bash -x
 
-sudo chmod a+x \"$(pwd)\"
-sudo rm -rf /var/www/html
-sudo ln -s \"$(pwd)\" /var/www/html
-
 composer install
 
-echo "alias wp='$(pwd)/vendor/bin/wp'" >> ~/.bashrc
+echo "alias wp='$(pwd)/vendor/bin/wp'" >> "${HOME}/.bashrc"
 
-curl -O https://raw.githubusercontent.com/wp-cli/wp-cli/v2.6.0/utils/wp-completion.bash | tee ~/wp-completion.bash
-echo "source ~/wp-completion.bash" >> ~/.bashrc
+curl -O https://raw.githubusercontent.com/wp-cli/wp-cli/v2.6.0/utils/wp-completion.bash | tee wp-completion.bash
+cat wp-completion.bash >> "${HOME}/.bashrc"
+rm wp-completion.bash
 
-source ~/.bashrc
-
-wp config create \
+vendor/bin/wp config create \
     --dbname=mariadb \
     --dbuser=mariadb \
     --dbhost=db \
     --dbpass=mariadb
 
-wp db drop --yes
+vendor/bin/wp db drop --yes || true
+vendor/bin/wp db create
 
-wp core install \
-    --url="http://localhost:8080/wordpress" \
-    --title="WP + Composer" \
+vendor/bin/wp core install \
+    --url="http://localhost:8080" \
+    --title="WP + Composer + Dev Containers = ♥" \
     --admin_user=wp \
     --admin_password=wp \
     --admin_email=wp@wp.wp
 
-# wp server
+# vendor/bin/wp server --host=0.0.0.0 --port=8080
