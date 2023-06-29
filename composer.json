@@ -1,0 +1,20 @@
+{
+    "name": "csaba/wplearn",
+    "authors": [
+        {
+            "name": "Csaba Szilveszter-Berei",
+            "email": "szilvesztercsab@gmail.com"
+        }
+    ],
+    "require": {
+        "johnpbloch/wordpress": "^6.2"
+    },
+    "config": {
+        "allow-plugins": {
+            "johnpbloch/wordpress-core-installer": true
+        }
+    },
+    "require-dev": {
+        "wp-cli/wp-cli-bundle": "^2.8"
+    }
+}
