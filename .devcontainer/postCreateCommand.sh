@@ -1,4 +1,12 @@
-#!/bin/bash -x
+#!/bin/sh
+
+set -eux
+
+if [ -z ${CODESPACE_NAME+x} ]; then
+	SITE_HOST="http://localhost:8080"
+else
+	SITE_HOST="https://${CODESPACE_NAME}-8080.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
+fi
 
 composer install
 
@@ -8,6 +16,7 @@ curl -O https://raw.githubusercontent.com/wp-cli/wp-cli/v2.6.0/utils/wp-completi
 cat wp-completion.bash >> "${HOME}/.bashrc"
 rm wp-completion.bash
 
+rm -f wordpress/wp-config.php
 vendor/bin/wp config create \
     --dbname=mariadb \
     --dbuser=mariadb \
@@ -18,7 +27,7 @@ vendor/bin/wp db drop --yes || true
 vendor/bin/wp db create
 
 vendor/bin/wp core install \
-    --url="http://localhost:8080" \
+    --url="${SITE_HOST}" \
     --title="WP + Composer + Dev Containers = ♥" \
     --admin_user=wp \
     --admin_password=wp \
