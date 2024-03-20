@@ -7,7 +7,7 @@
         }
     ],
     "require": {
-        "johnpbloch/wordpress": "^6.2"
+        "johnpbloch/wordpress": "6.4.3"
     },
     "config": {
         "allow-plugins": {
@@ -15,6 +15,6 @@
         }
     },
     "require-dev": {
-        "wp-cli/wp-cli-bundle": "^2.8"
+        "wp-cli/wp-cli-bundle": "2.10.0"
     }
 }
