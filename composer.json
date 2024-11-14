@@ -7,7 +7,7 @@
         }
     ],
     "require": {
-        "johnpbloch/wordpress": "6.6.2"
+        "johnpbloch/wordpress": "6.7.0"
     },
     "config": {
         "allow-plugins": {
